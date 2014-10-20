@@ -59,6 +59,16 @@ namespace Draco_RegexTest
             get { return CaptureForGroup(4);  }
         }
 
+        public int MatchIndex
+        {
+            get { if (mRegexMatch != null) return mRegexMatch.Index; return -1; }
+        }
+
+        public int MatchLength
+        {
+            get { if (mRegexMatch != null) return mRegexMatch.Length; return 0; }
+        }
+
         /// <summary>
         /// set to return regex capture names for GroupOne - GroupFour instead
         /// </summary>

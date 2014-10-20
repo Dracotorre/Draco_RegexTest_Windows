@@ -42,6 +42,12 @@
             this.AddRegexToListButton = new System.Windows.Forms.Button();
             this.regexEditTextBox = new System.Windows.Forms.TextBox();
             this.regexDataGridView = new System.Windows.Forms.DataGridView();
+            this.ItemKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CheckColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.purposeTypeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.titleDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.regexStringDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dTRegexItemBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.splitContainerRegexResults = new System.Windows.Forms.SplitContainer();
             this.matchShowLimitTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -50,32 +56,26 @@
             this.totalMatchLabel = new System.Windows.Forms.Label();
             this.matchesDataGridView = new System.Windows.Forms.DataGridView();
             this.matchID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tableLayoutPanelSource = new System.Windows.Forms.TableLayoutPanel();
-            this.urlTextBox = new System.Windows.Forms.TextBox();
-            this.sourceTextBox = new System.Windows.Forms.TextBox();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.escapeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.escapeescapeitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.responseToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.startupBackgroundWorker = new System.ComponentModel.BackgroundWorker();
-            this.regexMatchBackgroundWorker = new System.ComponentModel.BackgroundWorker();
-            this.urlFetchBackgroundWorker = new System.ComponentModel.BackgroundWorker();
-            this.ItemKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CheckColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.grabSourceSelectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.purposeTypeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.titleDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.regexStringDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dTRegexItemBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.fullMatchDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupOneDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupTwoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupThreeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupFourDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dTMatchesDataItemBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.tableLayoutPanelSource = new System.Windows.Forms.TableLayoutPanel();
+            this.urlTextBox = new System.Windows.Forms.TextBox();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.escapeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.escapeescapeitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.grabSourceSelectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.responseToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.startupBackgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.regexMatchBackgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.urlFetchBackgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.sourceTextBox = new System.Windows.Forms.RichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMainLR)).BeginInit();
             this.splitContainerMainLR.Panel1.SuspendLayout();
             this.splitContainerMainLR.Panel2.SuspendLayout();
@@ -90,16 +90,16 @@
             this.splitContainerEditor.SuspendLayout();
             this.tableLayoutPanelRegexEdit.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.regexDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dTRegexItemBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerRegexResults)).BeginInit();
             this.splitContainerRegexResults.Panel1.SuspendLayout();
             this.splitContainerRegexResults.Panel2.SuspendLayout();
             this.splitContainerRegexResults.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.matchesDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dTMatchesDataItemBindingSource)).BeginInit();
             this.tableLayoutPanelSource.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dTRegexItemBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dTMatchesDataItemBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainerMainLR
@@ -259,6 +259,46 @@
             this.regexDataGridView.CurrentCellDirtyStateChanged += new System.EventHandler(this.regexDataGridView_CurrentCellDirtyStateChanged);
             this.regexDataGridView.RowHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.regexDataGridView_RowHeaderMouseDoubleClick);
             // 
+            // ItemKey
+            // 
+            this.ItemKey.DataPropertyName = "ItemKey";
+            this.ItemKey.HeaderText = "ItemKey";
+            this.ItemKey.Name = "ItemKey";
+            this.ItemKey.ReadOnly = true;
+            this.ItemKey.Visible = false;
+            this.ItemKey.Width = 6;
+            // 
+            // CheckColumn
+            // 
+            this.CheckColumn.DataPropertyName = "IsChecked";
+            this.CheckColumn.HeaderText = "";
+            this.CheckColumn.Name = "CheckColumn";
+            this.CheckColumn.Width = 20;
+            // 
+            // purposeTypeDataGridViewTextBoxColumn
+            // 
+            this.purposeTypeDataGridViewTextBoxColumn.DataPropertyName = "PurposeType";
+            this.purposeTypeDataGridViewTextBoxColumn.HeaderText = "PurposeType";
+            this.purposeTypeDataGridViewTextBoxColumn.Name = "purposeTypeDataGridViewTextBoxColumn";
+            this.purposeTypeDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // titleDataGridViewTextBoxColumn
+            // 
+            this.titleDataGridViewTextBoxColumn.DataPropertyName = "Title";
+            this.titleDataGridViewTextBoxColumn.HeaderText = "Title";
+            this.titleDataGridViewTextBoxColumn.Name = "titleDataGridViewTextBoxColumn";
+            // 
+            // regexStringDataGridViewTextBoxColumn
+            // 
+            this.regexStringDataGridViewTextBoxColumn.DataPropertyName = "RegexString";
+            this.regexStringDataGridViewTextBoxColumn.HeaderText = "RegexString";
+            this.regexStringDataGridViewTextBoxColumn.Name = "regexStringDataGridViewTextBoxColumn";
+            this.regexStringDataGridViewTextBoxColumn.Width = 320;
+            // 
+            // dTRegexItemBindingSource
+            // 
+            this.dTRegexItemBindingSource.DataSource = typeof(Draco_RegexTest.DTRegexItem);
+            // 
             // splitContainerRegexResults
             // 
             this.splitContainerRegexResults.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -372,6 +412,49 @@
             this.matchID.ReadOnly = true;
             this.matchID.Width = 44;
             // 
+            // fullMatchDataGridViewTextBoxColumn
+            // 
+            this.fullMatchDataGridViewTextBoxColumn.DataPropertyName = "FullMatch";
+            this.fullMatchDataGridViewTextBoxColumn.HeaderText = "FullMatch";
+            this.fullMatchDataGridViewTextBoxColumn.Name = "fullMatchDataGridViewTextBoxColumn";
+            this.fullMatchDataGridViewTextBoxColumn.ReadOnly = true;
+            this.fullMatchDataGridViewTextBoxColumn.Width = 180;
+            // 
+            // groupOneDataGridViewTextBoxColumn
+            // 
+            this.groupOneDataGridViewTextBoxColumn.DataPropertyName = "GroupOne";
+            this.groupOneDataGridViewTextBoxColumn.HeaderText = "GroupOne";
+            this.groupOneDataGridViewTextBoxColumn.Name = "groupOneDataGridViewTextBoxColumn";
+            this.groupOneDataGridViewTextBoxColumn.ReadOnly = true;
+            this.groupOneDataGridViewTextBoxColumn.Width = 120;
+            // 
+            // groupTwoDataGridViewTextBoxColumn
+            // 
+            this.groupTwoDataGridViewTextBoxColumn.DataPropertyName = "GroupTwo";
+            this.groupTwoDataGridViewTextBoxColumn.HeaderText = "GroupTwo";
+            this.groupTwoDataGridViewTextBoxColumn.Name = "groupTwoDataGridViewTextBoxColumn";
+            this.groupTwoDataGridViewTextBoxColumn.ReadOnly = true;
+            this.groupTwoDataGridViewTextBoxColumn.Width = 120;
+            // 
+            // groupThreeDataGridViewTextBoxColumn
+            // 
+            this.groupThreeDataGridViewTextBoxColumn.DataPropertyName = "GroupThree";
+            this.groupThreeDataGridViewTextBoxColumn.HeaderText = "GroupThree";
+            this.groupThreeDataGridViewTextBoxColumn.Name = "groupThreeDataGridViewTextBoxColumn";
+            this.groupThreeDataGridViewTextBoxColumn.ReadOnly = true;
+            this.groupThreeDataGridViewTextBoxColumn.Width = 120;
+            // 
+            // groupFourDataGridViewTextBoxColumn
+            // 
+            this.groupFourDataGridViewTextBoxColumn.DataPropertyName = "GroupFour";
+            this.groupFourDataGridViewTextBoxColumn.HeaderText = "GroupFour";
+            this.groupFourDataGridViewTextBoxColumn.Name = "groupFourDataGridViewTextBoxColumn";
+            this.groupFourDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // dTMatchesDataItemBindingSource
+            // 
+            this.dTMatchesDataItemBindingSource.DataSource = typeof(Draco_RegexTest.DTMatchesDataItem);
+            // 
             // tableLayoutPanelSource
             // 
             this.tableLayoutPanelSource.ColumnCount = 1;
@@ -398,18 +481,6 @@
             this.urlTextBox.TabIndex = 0;
             this.urlTextBox.TextChanged += new System.EventHandler(this.OnTextBoxTextChanged);
             this.urlTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.urlTextBox_KeyDown);
-            // 
-            // sourceTextBox
-            // 
-            this.sourceTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.sourceTextBox.Location = new System.Drawing.Point(3, 45);
-            this.sourceTextBox.Multiline = true;
-            this.sourceTextBox.Name = "sourceTextBox";
-            this.sourceTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.sourceTextBox.Size = new System.Drawing.Size(446, 526);
-            this.sourceTextBox.TabIndex = 1;
-            this.sourceTextBox.WordWrap = false;
-            this.sourceTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.sourceTextBox_KeyDown);
             // 
             // menuStrip1
             // 
@@ -455,6 +526,14 @@
             this.escapeescapeitToolStripMenuItem.Text = "escape-escape-it";
             this.escapeescapeitToolStripMenuItem.Click += new System.EventHandler(this.escapeescapeitToolStripMenuItem_Click);
             // 
+            // grabSourceSelectionToolStripMenuItem
+            // 
+            this.grabSourceSelectionToolStripMenuItem.Name = "grabSourceSelectionToolStripMenuItem";
+            this.grabSourceSelectionToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.G)));
+            this.grabSourceSelectionToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
+            this.grabSourceSelectionToolStripMenuItem.Text = "Grab source selection";
+            this.grabSourceSelectionToolStripMenuItem.Click += new System.EventHandler(this.grabSourceSelectionToolStripMenuItem_Click);
+            // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -486,96 +565,15 @@
             this.urlFetchBackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.urlFetchBackgroundWorker_DoWork);
             this.urlFetchBackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.urlFetchBackgroundWorker_RunWorkerCompleted);
             // 
-            // ItemKey
+            // sourceTextBox
             // 
-            this.ItemKey.DataPropertyName = "ItemKey";
-            this.ItemKey.HeaderText = "ItemKey";
-            this.ItemKey.Name = "ItemKey";
-            this.ItemKey.ReadOnly = true;
-            this.ItemKey.Visible = false;
-            this.ItemKey.Width = 6;
-            // 
-            // CheckColumn
-            // 
-            this.CheckColumn.DataPropertyName = "IsChecked";
-            this.CheckColumn.HeaderText = "";
-            this.CheckColumn.Name = "CheckColumn";
-            this.CheckColumn.Width = 20;
-            // 
-            // grabSourceSelectionToolStripMenuItem
-            // 
-            this.grabSourceSelectionToolStripMenuItem.Name = "grabSourceSelectionToolStripMenuItem";
-            this.grabSourceSelectionToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.G)));
-            this.grabSourceSelectionToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
-            this.grabSourceSelectionToolStripMenuItem.Text = "Grab source selection";
-            this.grabSourceSelectionToolStripMenuItem.Click += new System.EventHandler(this.grabSourceSelectionToolStripMenuItem_Click);
-            // 
-            // purposeTypeDataGridViewTextBoxColumn
-            // 
-            this.purposeTypeDataGridViewTextBoxColumn.DataPropertyName = "PurposeType";
-            this.purposeTypeDataGridViewTextBoxColumn.HeaderText = "PurposeType";
-            this.purposeTypeDataGridViewTextBoxColumn.Name = "purposeTypeDataGridViewTextBoxColumn";
-            this.purposeTypeDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // titleDataGridViewTextBoxColumn
-            // 
-            this.titleDataGridViewTextBoxColumn.DataPropertyName = "Title";
-            this.titleDataGridViewTextBoxColumn.HeaderText = "Title";
-            this.titleDataGridViewTextBoxColumn.Name = "titleDataGridViewTextBoxColumn";
-            // 
-            // regexStringDataGridViewTextBoxColumn
-            // 
-            this.regexStringDataGridViewTextBoxColumn.DataPropertyName = "RegexString";
-            this.regexStringDataGridViewTextBoxColumn.HeaderText = "RegexString";
-            this.regexStringDataGridViewTextBoxColumn.Name = "regexStringDataGridViewTextBoxColumn";
-            this.regexStringDataGridViewTextBoxColumn.Width = 320;
-            // 
-            // dTRegexItemBindingSource
-            // 
-            this.dTRegexItemBindingSource.DataSource = typeof(Draco_RegexTest.DTRegexItem);
-            // 
-            // fullMatchDataGridViewTextBoxColumn
-            // 
-            this.fullMatchDataGridViewTextBoxColumn.DataPropertyName = "FullMatch";
-            this.fullMatchDataGridViewTextBoxColumn.HeaderText = "FullMatch";
-            this.fullMatchDataGridViewTextBoxColumn.Name = "fullMatchDataGridViewTextBoxColumn";
-            this.fullMatchDataGridViewTextBoxColumn.ReadOnly = true;
-            this.fullMatchDataGridViewTextBoxColumn.Width = 180;
-            // 
-            // groupOneDataGridViewTextBoxColumn
-            // 
-            this.groupOneDataGridViewTextBoxColumn.DataPropertyName = "GroupOne";
-            this.groupOneDataGridViewTextBoxColumn.HeaderText = "GroupOne";
-            this.groupOneDataGridViewTextBoxColumn.Name = "groupOneDataGridViewTextBoxColumn";
-            this.groupOneDataGridViewTextBoxColumn.ReadOnly = true;
-            this.groupOneDataGridViewTextBoxColumn.Width = 120;
-            // 
-            // groupTwoDataGridViewTextBoxColumn
-            // 
-            this.groupTwoDataGridViewTextBoxColumn.DataPropertyName = "GroupTwo";
-            this.groupTwoDataGridViewTextBoxColumn.HeaderText = "GroupTwo";
-            this.groupTwoDataGridViewTextBoxColumn.Name = "groupTwoDataGridViewTextBoxColumn";
-            this.groupTwoDataGridViewTextBoxColumn.ReadOnly = true;
-            this.groupTwoDataGridViewTextBoxColumn.Width = 120;
-            // 
-            // groupThreeDataGridViewTextBoxColumn
-            // 
-            this.groupThreeDataGridViewTextBoxColumn.DataPropertyName = "GroupThree";
-            this.groupThreeDataGridViewTextBoxColumn.HeaderText = "GroupThree";
-            this.groupThreeDataGridViewTextBoxColumn.Name = "groupThreeDataGridViewTextBoxColumn";
-            this.groupThreeDataGridViewTextBoxColumn.ReadOnly = true;
-            this.groupThreeDataGridViewTextBoxColumn.Width = 120;
-            // 
-            // groupFourDataGridViewTextBoxColumn
-            // 
-            this.groupFourDataGridViewTextBoxColumn.DataPropertyName = "GroupFour";
-            this.groupFourDataGridViewTextBoxColumn.HeaderText = "GroupFour";
-            this.groupFourDataGridViewTextBoxColumn.Name = "groupFourDataGridViewTextBoxColumn";
-            this.groupFourDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // dTMatchesDataItemBindingSource
-            // 
-            this.dTMatchesDataItemBindingSource.DataSource = typeof(Draco_RegexTest.DTMatchesDataItem);
+            this.sourceTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.sourceTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.sourceTextBox.Location = new System.Drawing.Point(3, 45);
+            this.sourceTextBox.Name = "sourceTextBox";
+            this.sourceTextBox.Size = new System.Drawing.Size(446, 526);
+            this.sourceTextBox.TabIndex = 1;
+            this.sourceTextBox.Text = "";
             // 
             // Draco_RegexTestForm
             // 
@@ -603,20 +601,20 @@
             this.tableLayoutPanelRegexEdit.ResumeLayout(false);
             this.tableLayoutPanelRegexEdit.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.regexDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dTRegexItemBindingSource)).EndInit();
             this.splitContainerRegexResults.Panel1.ResumeLayout(false);
             this.splitContainerRegexResults.Panel1.PerformLayout();
             this.splitContainerRegexResults.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerRegexResults)).EndInit();
             this.splitContainerRegexResults.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.matchesDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dTMatchesDataItemBindingSource)).EndInit();
             this.tableLayoutPanelSource.ResumeLayout(false);
             this.tableLayoutPanelSource.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dTRegexItemBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dTMatchesDataItemBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -639,7 +637,6 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelSource;
         private System.Windows.Forms.TextBox urlTextBox;
-        private System.Windows.Forms.TextBox sourceTextBox;
         private System.Windows.Forms.DataGridView matchesDataGridView;
         private System.Windows.Forms.BindingSource dTMatchesDataItemBindingSource;
         private System.Windows.Forms.DataGridView regexDataGridView;
@@ -666,6 +663,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn titleDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn regexStringDataGridViewTextBoxColumn;
         private System.Windows.Forms.ToolStripMenuItem grabSourceSelectionToolStripMenuItem;
+        private System.Windows.Forms.RichTextBox sourceTextBox;
     }
 }
 

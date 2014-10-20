@@ -12,6 +12,7 @@ using System.Windows.Forms;
 
 namespace Draco_RegexTest
 {
+
     /// <summary>
     /// Primary form
     /// Data sources for DataGridViews: 
@@ -21,6 +22,7 @@ namespace Draco_RegexTest
     public partial class Draco_RegexTestForm : Form
     {
         private DTRegexManagerController mRegexWorkManager;
+        private Color mMatchColor;
 
         public Draco_RegexTestForm()
         {
@@ -28,6 +30,7 @@ namespace Draco_RegexTest
             this.urlTextBox.SetWatermark("URL");
             EnableAll(false);
             this.startupBackgroundWorker.RunWorkerAsync();
+            mMatchColor = Color.Green;
         }
 
         #region background workers
@@ -67,10 +70,15 @@ namespace Draco_RegexTest
             }
             this.dTMatchesDataItemBindingSource.DataSource = matchItems;
 
+            for (int i = 0; i < matchItems.Length; ++i)
+            {
+                ColorSourceTextForMatch(matchItems[i], mMatchColor);
+            }
+
             if (mRegexWorkManager.LastErrorString.Length > 0)
             {
-                ClearMatches();
-                this.responseToolStripStatusLabel.Text = mRegexWorkManager.LastErrorString;
+                    ClearMatches();
+                    this.responseToolStripStatusLabel.Text = mRegexWorkManager.LastErrorString;
             }
             else this.responseToolStripStatusLabel.Text = "Ready";
         }
@@ -229,11 +237,20 @@ namespace Draco_RegexTest
             this.urlTextBox.Enabled = enable;
         }
 
+        private void ClearSourceTextColors()
+        {
+            this.sourceTextBox.SelectAll();
+            this.sourceTextBox.SelectionColor = Color.Black;
+            this.sourceTextBox.SelectionStart = 0;
+            this.sourceTextBox.SelectionLength = 0;
+        }
+
         private void ClearMatches()
         {
             this.dTMatchesDataItemBindingSource.DataSource = null;
             this.matchShowLimitTextBox.Text = "0";
             this.totalMatchesTextBox.Text = "0";
+            ClearSourceTextColors();
         }
 
         private string CleanText(string text)
@@ -256,6 +273,16 @@ namespace Draco_RegexTest
             }
         }
 
+        private void ColorSourceTextForMatch(DTMatchesDataItem matchItem, Color color)
+        {
+            if (matchItem.MatchIndex >= 0)
+            {
+                this.sourceTextBox.SelectionStart = matchItem.MatchIndex;
+                this.sourceTextBox.SelectionLength = matchItem.MatchLength;
+                this.sourceTextBox.SelectionColor = color;
+            }
+        }
+
         /// <summary>
         /// prechecks the term and starts bg worker if OK
         /// </summary>
@@ -265,6 +292,7 @@ namespace Draco_RegexTest
         {
             if (this.regexMatchBackgroundWorker.IsBusy) return 0;
             ClearMatches();
+
             int precheck = mRegexWorkManager.PreCheckRegexString(regexPattern);
             if (precheck > 0)
             {
