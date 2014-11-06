@@ -23,6 +23,8 @@ namespace Draco_RegexTest
     {
         private DTRegexManagerController mRegexWorkManager;
         private Color mMatchColor;
+        private int mSourceSearchIndex;
+        private string mLastSourceSearchMatchString;
 
         public Draco_RegexTestForm()
         {
@@ -199,10 +201,28 @@ namespace Draco_RegexTest
             this.regexEditTextBox.Text = this.regexEditTextBox.Text.Insert(this.regexEditTextBox.SelectionStart, cleanedText);
         }
 
+        private void nextSearchButton_Click(object sender, EventArgs e)
+        {
+            ColorSourceTextForLastSearchText(Color.Black);
+            if (mLastSourceSearchMatchString != null && mLastSourceSearchMatchString.Length > 0)
+            {
+                mSourceSearchIndex = mSourceSearchIndex + mLastSourceSearchMatchString.Length;
+            }
+            else
+            {
+                mSourceSearchIndex = 0;
+            }
+            if (this.searchTextBox.Text.Length > 0)
+            {
+                SearchSourceText(this.searchTextBox.Text);
+            }
+        }
+
         private void OnTextBoxTextChanged(object sender, EventArgs e)
         {
-            /*
+            
             TextBox tbox = sender as TextBox;
+            /*
             if (tbox.Text == "")
             {
                 string waterMarkText = "";
@@ -216,6 +236,19 @@ namespace Draco_RegexTest
                 }
                 
             } */
+
+            if (tbox.Equals(this.searchTextBox))
+            {
+                if (tbox.Text.Length == 0)
+                {
+                    ClearLastSearchMatch();
+                    mSourceSearchIndex = 0;
+                }
+                else
+                {
+                    SearchSourceText(tbox.Text);
+                }
+            }
         }
 
         #endregion
@@ -241,6 +274,10 @@ namespace Draco_RegexTest
         {
             this.sourceTextBox.SelectAll();
             this.sourceTextBox.SelectionColor = Color.Black;
+            if (mLastSourceSearchMatchString != null && mLastSourceSearchMatchString.Length > 0)
+            {
+                SearchSourceText(mLastSourceSearchMatchString);
+            }
             this.sourceTextBox.SelectionStart = 0;
             this.sourceTextBox.SelectionLength = 0;
         }
@@ -283,6 +320,23 @@ namespace Draco_RegexTest
             }
         }
 
+        private void ColorSourceTextForLastSearchText(Color color)
+        {
+            if (mLastSourceSearchMatchString != null && mLastSourceSearchMatchString.Length > 0)
+            {
+                this.sourceTextBox.SelectionStart = mSourceSearchIndex;
+                this.sourceTextBox.SelectionLength = mLastSourceSearchMatchString.Length;
+                this.sourceTextBox.SelectionColor = color;
+                this.sourceTextBox.ScrollToCaret();
+            }
+        }
+
+        private void ClearLastSearchMatch()
+        {
+            ColorSourceTextForLastSearchText(Color.Black);
+            mLastSourceSearchMatchString = "";
+        }
+
         /// <summary>
         /// prechecks the term and starts bg worker if OK
         /// </summary>
@@ -302,6 +356,30 @@ namespace Draco_RegexTest
             }
             
             return precheck;
+        }
+
+        private void SearchSourceText(string searchString)
+        {
+            ClearLastSearchMatch();
+            string sourceText = this.sourceTextBox.Text;
+            int indexMatch = sourceText.IndexOf(searchString, mSourceSearchIndex, StringComparison.CurrentCultureIgnoreCase);
+
+            if (indexMatch >= 0)
+            {
+                mLastSourceSearchMatchString = searchString;
+                mSourceSearchIndex = indexMatch;
+                ColorSourceTextForLastSearchText(Color.Orange);
+
+            }
+            else if (mSourceSearchIndex > 0)
+            {
+                mSourceSearchIndex = 0;
+                this.SearchSourceText(searchString);
+            }
+            else
+            {
+                mSourceSearchIndex = 0;
+            }
         }
 
         private string StripNewLinesAndTabs(string text)
@@ -366,27 +444,6 @@ namespace Draco_RegexTest
         #endregion
 
         
-
-        
-
-        
-
-        
-
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -64,6 +64,10 @@
             this.dTMatchesDataItemBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tableLayoutPanelSource = new System.Windows.Forms.TableLayoutPanel();
             this.urlTextBox = new System.Windows.Forms.TextBox();
+            this.sourceTextBox = new System.Windows.Forms.RichTextBox();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.groupBoxSearch = new System.Windows.Forms.GroupBox();
+            this.searchTextBox = new System.Windows.Forms.TextBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -75,7 +79,7 @@
             this.startupBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.regexMatchBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.urlFetchBackgroundWorker = new System.ComponentModel.BackgroundWorker();
-            this.sourceTextBox = new System.Windows.Forms.RichTextBox();
+            this.nextSearchButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMainLR)).BeginInit();
             this.splitContainerMainLR.Panel1.SuspendLayout();
             this.splitContainerMainLR.Panel2.SuspendLayout();
@@ -98,6 +102,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.matchesDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dTMatchesDataItemBindingSource)).BeginInit();
             this.tableLayoutPanelSource.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
+            this.groupBoxSearch.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -462,6 +470,7 @@
             this.tableLayoutPanelSource.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanelSource.Controls.Add(this.urlTextBox, 0, 0);
             this.tableLayoutPanelSource.Controls.Add(this.sourceTextBox, 0, 1);
+            this.tableLayoutPanelSource.Controls.Add(this.splitContainer1, 0, 2);
             this.tableLayoutPanelSource.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelSource.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanelSource.Name = "tableLayoutPanelSource";
@@ -481,6 +490,49 @@
             this.urlTextBox.TabIndex = 0;
             this.urlTextBox.TextChanged += new System.EventHandler(this.OnTextBoxTextChanged);
             this.urlTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.urlTextBox_KeyDown);
+            // 
+            // sourceTextBox
+            // 
+            this.sourceTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.sourceTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.sourceTextBox.Location = new System.Drawing.Point(3, 45);
+            this.sourceTextBox.Name = "sourceTextBox";
+            this.sourceTextBox.Size = new System.Drawing.Size(446, 526);
+            this.sourceTextBox.TabIndex = 1;
+            this.sourceTextBox.Text = "";
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(3, 577);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.groupBoxSearch);
+            this.splitContainer1.Size = new System.Drawing.Size(446, 66);
+            this.splitContainer1.SplitterDistance = 184;
+            this.splitContainer1.TabIndex = 2;
+            // 
+            // groupBoxSearch
+            // 
+            this.groupBoxSearch.Controls.Add(this.nextSearchButton);
+            this.groupBoxSearch.Controls.Add(this.searchTextBox);
+            this.groupBoxSearch.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBoxSearch.Location = new System.Drawing.Point(0, 0);
+            this.groupBoxSearch.Name = "groupBoxSearch";
+            this.groupBoxSearch.Size = new System.Drawing.Size(184, 66);
+            this.groupBoxSearch.TabIndex = 0;
+            this.groupBoxSearch.TabStop = false;
+            this.groupBoxSearch.Text = "search";
+            // 
+            // searchTextBox
+            // 
+            this.searchTextBox.Location = new System.Drawing.Point(7, 20);
+            this.searchTextBox.Name = "searchTextBox";
+            this.searchTextBox.Size = new System.Drawing.Size(108, 20);
+            this.searchTextBox.TabIndex = 0;
+            this.searchTextBox.TextChanged += new System.EventHandler(this.OnTextBoxTextChanged);
             // 
             // menuStrip1
             // 
@@ -565,15 +617,16 @@
             this.urlFetchBackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.urlFetchBackgroundWorker_DoWork);
             this.urlFetchBackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.urlFetchBackgroundWorker_RunWorkerCompleted);
             // 
-            // sourceTextBox
+            // nextSearchButton
             // 
-            this.sourceTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.sourceTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.sourceTextBox.Location = new System.Drawing.Point(3, 45);
-            this.sourceTextBox.Name = "sourceTextBox";
-            this.sourceTextBox.Size = new System.Drawing.Size(446, 526);
-            this.sourceTextBox.TabIndex = 1;
-            this.sourceTextBox.Text = "";
+            this.nextSearchButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nextSearchButton.Location = new System.Drawing.Point(121, 17);
+            this.nextSearchButton.Name = "nextSearchButton";
+            this.nextSearchButton.Size = new System.Drawing.Size(32, 23);
+            this.nextSearchButton.TabIndex = 1;
+            this.nextSearchButton.Text = ">";
+            this.nextSearchButton.UseVisualStyleBackColor = true;
+            this.nextSearchButton.Click += new System.EventHandler(this.nextSearchButton_Click);
             // 
             // Draco_RegexTestForm
             // 
@@ -611,6 +664,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.dTMatchesDataItemBindingSource)).EndInit();
             this.tableLayoutPanelSource.ResumeLayout(false);
             this.tableLayoutPanelSource.PerformLayout();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
+            this.groupBoxSearch.ResumeLayout(false);
+            this.groupBoxSearch.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
@@ -664,6 +722,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn regexStringDataGridViewTextBoxColumn;
         private System.Windows.Forms.ToolStripMenuItem grabSourceSelectionToolStripMenuItem;
         private System.Windows.Forms.RichTextBox sourceTextBox;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.GroupBox groupBoxSearch;
+        private System.Windows.Forms.TextBox searchTextBox;
+        private System.Windows.Forms.Button nextSearchButton;
     }
 }
 
