@@ -55,10 +55,49 @@ namespace Draco_RegexTest
             return item;
         }
 
+        /// <summary>
+        /// will not duplicate same title and regexString
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="regexString"></param>
+        /// <param name="purpose"></param>
+        /// <returns>returns created item or existing item</returns>
         public DTRegexItem CreateNewItem(string title, string regexString, DTRegexItemPurposeType purpose)
         {
             DTRegexItem item = new DTRegexItem(title, regexString, purpose);
-            mItems.Add(item);
+            bool found = false;
+
+            if (purpose == DTRegexItemPurposeType.InternalOnly)
+            {
+                for (int i = 0; i < mInternalItems.Count; ++i)
+                {
+                    if (mInternalItems[i].Equals(item))
+                    {
+                        item = mInternalItems[i];
+                        found = true;
+                    }
+                }
+                if (!found)
+                {
+                    mInternalItems.Add(item);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < mItems.Count; ++i)
+                {
+                    if (mItems[i].Equals(item))
+                    {
+                        item = mItems[i];
+                        found = true;
+                    }
+                }
+                if (!found)
+                {
+                    mItems.Add(item);
+                }
+            }
+
             return item;
         }
 
@@ -123,9 +162,11 @@ namespace Draco_RegexTest
         private int LoadInternalItems()
         {
             mInternalItems.Clear();
-            string fileName = System.IO.Path.Combine("Resources", "internalItems.xml");
+            string fileName = System.IO.Path.Combine("Resources", "internItemsRegex.xml");
             string filepath = System.IO.Path.Combine(System.Windows.Forms.Application.StartupPath, fileName);
             mInternalItems.AddRange(LoadItemsFromFile(filepath));
+
+            System.Diagnostics.Debug.WriteLine("loaded internals: " + mInternalItems.Count.ToString());
             return 0;
         }
 

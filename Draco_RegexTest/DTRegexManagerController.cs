@@ -31,7 +31,6 @@ namespace Draco_RegexTest
             mLastRegexString = "";
             mLastErrorString = "";
             LoadItems();
-
         }
 
         #region properties
@@ -84,26 +83,6 @@ namespace Draco_RegexTest
 
             return result;
         }
-
-        public string SimplifyAndEscapeText(string text)
-        {
-            // step 1: replace common patterns with holders
-
-            // step 2: escape
-            string result = text.Replace("\\", "\\\\");
-            result = result.Replace("?", "\\?").Replace("+", "\\+").Replace("*", "\\*").Replace("-", "\\-").Replace(".", "\\.").Replace("|", "\\|");
-            result = result.Replace("(", "\\(").Replace(")", "\\)").Replace("{", "\\{").Replace("}", "\\}").Replace("[", "\\[").Replace("]", "\\]");
-
-            // step 3
-            result = ReduceSpacingFromText(result);
-
-            // step 4: replace common numbers not replaced by common patterns
-
-            // step 5: replace holders from step 1 with regex strings
-
-            return result;
-        }
-
 
         /// <summary>
         /// regex strings and clips created by the user
@@ -229,6 +208,33 @@ namespace Draco_RegexTest
             return mItemStore.Save();
         }
 
+        /// <summary>
+        /// turn source text into safe (escaped) regex string with some common regex shortcuts
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public string SimplifyAndEscapeText(string text)
+        {
+            // step 1:
+            string result = ReplaceCommonPatternsWithHolderStringsInText(text);
+
+            // step 2: escape
+            result = result.Replace("\\", "\\\\");
+            result = result.Replace("?", "\\?").Replace("+", "\\+").Replace("*", "\\*").Replace("-", "\\-").Replace(".", "\\.").Replace("|", "\\|");
+            result = result.Replace("(", "\\(").Replace(")", "\\)").Replace("{", "\\{").Replace("}", "\\}").Replace("[", "\\[").Replace("]", "\\]");
+
+            // step 3
+            result = ReduceSpacingFromText(result);
+
+            // step 4: replace common numbers not replaced by common patterns
+            // TODO
+
+            // step 5:
+            result = ReplaceHolderStringsWithRegexInText(result);
+
+            return result;
+        }
+
         #endregion
 
         #region private methods
@@ -236,6 +242,7 @@ namespace Draco_RegexTest
         private int LoadItems()
         {
             mItemStore = new DTRegexItemStore(mFilePathOfUserStore);
+
             return 0;
         }
 
@@ -250,7 +257,7 @@ namespace Draco_RegexTest
             int checkIt = PatternCheckNotEscaped("||", regexString, false);
             if (checkIt < 0) return checkIt;
             checkIt = PatternCheckNotEscaped("[\\W\\D\\S]*?[\\W\\D\\S]*?", regexString, false);
-            return 1;
+            return checkIt;
         }
 
         /// <summary>
@@ -293,6 +300,43 @@ namespace Draco_RegexTest
                 if (!regexString[idx - 1].Equals('\\')) return -idx;
             }
             return 0;
+        }
+
+        private string ReplaceCommonPatternsWithHolderStringsInText(string text)
+        {
+            DTRegexItem[] commonPatternItems = mItemStore.ItemsWithPurpose(DTRegexItemPurposeType.InternalOnly);
+
+            string result = text;
+
+            if (commonPatternItems != null)
+            {
+                for (int i = 0; i < commonPatternItems.Length; ++i)
+                {
+                    if (Regex.IsMatch(result, commonPatternItems[i].RegexString))
+                    {
+                        result = Regex.Replace(result, commonPatternItems[i].RegexString, "~" + commonPatternItems[i].Title + "~");
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        private string ReplaceHolderStringsWithRegexInText(string text)
+        {
+            string result = text;
+            DTRegexItem[] commonPatternItems = mItemStore.ItemsWithPurpose(DTRegexItemPurposeType.InternalOnly);
+
+            if (commonPatternItems != null)
+            {
+                for (int i = 0; i < commonPatternItems.Length; ++i)
+                {
+                    string holder = "~" + commonPatternItems[i].Title + "~";
+                    result = result.Replace(holder, commonPatternItems[i].RegexString);
+                }
+            }
+
+            return result;
         }
 
         #endregion

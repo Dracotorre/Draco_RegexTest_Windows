@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<DTRegexItems>
+<dtr_item key="79e5481f-0b22-4b6b-b334-0a251ffd6192" purpose="InternalOnly" title="rsDateIsoNormHolder" regex="(?&lt;DAY&gt;(?:[0-2][1-9]|3[01]|[1-9]))\s+?(?&lt;MONTH&gt;[JEGFMLASONDjegfmlasond]\w{2})\w{0,9}\s+?(?&lt;YEAR&gt;(?:20)?\d\d)" />
+<dtr_item key="d6004e74-13a7-4495-92a2-4ae12afff18d" purpose="InternalOnly" title="rsDateIsoWebHolder" regex="(?&lt;YEAR&gt;20\d\d)\-(?&lt;MONTH&gt;[01]\d)\-(?&lt;DAY&gt;[0123]\d)T[01]\d:\d\d:\d\d[\+\-]\d\d:\d\d" />
+<dtr_item key="d6ab16a2-2a6f-46d8-b279-ce395930da07" purpose="InternalOnly" title="rsDateNameIntAHolder" regex="(?&lt;MONTH&gt;[JFMASOND][a-zA-Z]{2})[a-zA-Z]{0,6} (?&lt;DAY&gt;(?:[0-2][1-9]|3[01]|\d))(?:st|nd|th)?, (?&lt;YEAR&gt;(?:20|19)?\d\d)" />
+<dtr_item key="5ee2938d-d7ee-445f-8f4e-b39d8ff25c01" purpose="InternalOnly" title="rsDateNumIntBHolder" regex="(?&lt;MONTH&gt;(?:1[012]|0?[1-9]))[-/\.](?&lt;DAY&gt;(?:[1-2][0-9]|3[01]|0?[1-9]))[-/\.](?&lt;YEAR&gt;(?:20)?\d\d)" />
+<dtr_item key="28ed0129-c2ce-4ff3-bb69-14b65ff48ae3" purpose="InternalOnly" title="rsLinkAHolder" regex="href=['&quot;]\S+['&quot;]" />
+</DTRegexItems>
