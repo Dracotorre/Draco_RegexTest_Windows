@@ -20,14 +20,14 @@ Source written in C# using Visual Studio 2013 for Windows Desktop.
 * * Grab Source Selection (CTL+G) copies selection from source, auto-escapes characters with common regex replacements, and pastes into working text box.
 * * strip escaped escapes from working text. useful after pasting expression from source code
 * * escape escapes in workext text. useful before pasting into source code
+* search source text
+* highlight matches in source text
 
 ### To-Do Feature List
 
 * add File menu to load/save/add lists of other favorite regular expressions
 * finish Grab Source Selection feature with common replacements
 * add more common error warnings to pre-check
-* highlight matches in source text
-* search source text
 * color syntax for regular expression strings
 * paranthesis matching in working text box
 * remove stored regular expression
