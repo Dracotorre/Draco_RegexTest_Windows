@@ -292,8 +292,9 @@ namespace Draco_RegexTest
 
         private string CleanText(string text)
         {
-            string result = StripNewLinesAndTabs(text);
-            result = mRegexWorkManager.SimplifyAndEscapeText(result);
+            string result = mRegexWorkManager.SimplifyAndEscapeText(text);
+            result = StripNewLinesAndTabs(result);
+
             return result;
         }
 

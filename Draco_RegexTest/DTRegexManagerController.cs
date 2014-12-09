@@ -227,7 +227,7 @@ namespace Draco_RegexTest
             result = ReduceSpacingFromText(result);
 
             // step 4: replace common numbers not replaced by common patterns
-            // TODO
+            result = ReplaceCommonNumberPatternsInText(result);
 
             // step 5:
             result = ReplaceHolderStringsWithRegexInText(result);
@@ -318,6 +318,13 @@ namespace Draco_RegexTest
                     }
                 }
             }
+
+            return result;
+        }
+
+        private string ReplaceCommonNumberPatternsInText(string text)
+        {
+            string result = Regex.Replace(text, "\\b\\d+\\b", "\\d+");
 
             return result;
         }

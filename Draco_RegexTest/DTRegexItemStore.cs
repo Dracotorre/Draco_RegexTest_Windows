@@ -177,28 +177,36 @@ namespace Draco_RegexTest
             {
                 using (System.IO.FileStream reader = new System.IO.FileStream(filepath, System.IO.FileMode.Open, System.IO.FileAccess.Read))
                 {
-                    using (XmlReader xReader = XmlReader.Create(reader))
+                    try
                     {
-                        while(xReader.Read())
+                        using (XmlReader xReader = XmlReader.Create(reader))
                         {
-                            if (xReader.NodeType == XmlNodeType.Element && xReader.Name.Equals("dtr_item"))
+                            while (xReader.Read())
                             {
-                                if (xReader.HasAttributes)
+                                if (xReader.NodeType == XmlNodeType.Element && xReader.Name.Equals("dtr_item"))
                                 {
-                                    string key = xReader.GetAttribute("key");
-                                    string purposeString = xReader.GetAttribute("purpose");
-                                    string title = xReader.GetAttribute("title");
-                                    string regexStr = xReader.GetAttribute("regex");
-                                    if (purposeString.Length > 0 && regexStr.Length > 0)
+                                    if (xReader.HasAttributes)
                                     {
-                                        DTRegexItemPurposeType purpose = (DTRegexItemPurposeType)Enum.Parse(typeof(DTRegexItemPurposeType), purposeString);
-                                        DTRegexItem item = new DTRegexItem(title, regexStr, purpose, key);
-                                        items.Add(item);
+                                        string key = xReader.GetAttribute("key");
+                                        string purposeString = xReader.GetAttribute("purpose");
+                                        string title = xReader.GetAttribute("title");
+                                        string regexStr = xReader.GetAttribute("regex");
+                                        if (purposeString.Length > 0 && regexStr.Length > 0)
+                                        {
+                                            DTRegexItemPurposeType purpose = (DTRegexItemPurposeType)Enum.Parse(typeof(DTRegexItemPurposeType), purposeString);
+                                            DTRegexItem item = new DTRegexItem(title, regexStr, purpose, key);
+                                            items.Add(item);
+                                        }
                                     }
                                 }
                             }
                         }
                     }
+                    catch (System.Xml.XmlException)
+                    {
+                        // do nothing
+                    }
+                    
                 }
                 items.Sort();
             }
