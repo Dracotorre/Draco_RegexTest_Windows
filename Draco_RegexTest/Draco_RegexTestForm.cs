@@ -57,32 +57,10 @@ namespace Draco_RegexTest
         private void regexMatchBackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             string[] captureNames = null;
-            DTMatchesDataItem[] matchItems = mRegexWorkManager.MatchesWorkResults(captureNames);
-            if (matchItems != null)
-            {
-                this.totalMatchesTextBox.Text = matchItems.Length.ToString();
-                if (matchItems.Length > 100)
-                {
-                    List<DTMatchesDataItem> tmpList = new List<DTMatchesDataItem>();
-                    tmpList.AddRange(matchItems);
-                    tmpList.RemoveRange(100, matchItems.Length - 100);
-                    matchItems = tmpList.ToArray();
-                }
-                this.matchShowLimitTextBox.Text = matchItems.Length.ToString();
-            }
-            this.dTMatchesDataItemBindingSource.DataSource = matchItems;
-
-            for (int i = 0; i < matchItems.Length; ++i)
-            {
-                ColorSourceTextForMatch(matchItems[i], mMatchColor);
-            }
-
-            if (mRegexWorkManager.LastErrorString.Length > 0)
-            {
-                    ClearMatches();
-                    this.responseToolStripStatusLabel.Text = mRegexWorkManager.LastErrorString;
-            }
-            else this.responseToolStripStatusLabel.Text = "Ready";
+            this.groupComboBox.Text = "";
+            this.groupComboBox.Items.Add("");
+            this.groupComboBox.Items.AddRange(mRegexWorkManager.GroupNamesInCurrentRegex());
+            UpdateMatchesForCaptureNames(captureNames);
         }
 
         private void urlFetchBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -251,6 +229,20 @@ namespace Draco_RegexTest
             }
         }
 
+        private void groupComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (this.groupComboBox.Text.Length > 0)
+            {
+                string[] captureNames = new string[1];
+                captureNames[0] = this.groupComboBox.Text;
+                UpdateMatchesForCaptureNames(captureNames);
+            }
+            else
+            {
+                UpdateMatchesForCaptureNames(null);
+            }
+        }
+
         #endregion
 
         #region private methods
@@ -287,6 +279,8 @@ namespace Draco_RegexTest
             this.dTMatchesDataItemBindingSource.DataSource = null;
             this.matchShowLimitTextBox.Text = "0";
             this.totalMatchesTextBox.Text = "0";
+            this.groupComboBox.Items.Clear();
+            this.groupComboBox.Text = "";
             ClearSourceTextColors();
         }
 
@@ -388,6 +382,36 @@ namespace Draco_RegexTest
             return text.Replace("\r", "").Replace("\n", "").Replace("\t", "").Replace("\v", "");
         }
 
+        private void UpdateMatchesForCaptureNames(string[] captureNames)
+        {
+            DTMatchesDataItem[] matchItems = mRegexWorkManager.MatchesWorkResults(captureNames);
+            if (matchItems != null)
+            {
+                this.totalMatchesTextBox.Text = matchItems.Length.ToString();
+                if (matchItems.Length > 100)
+                {
+                    List<DTMatchesDataItem> tmpList = new List<DTMatchesDataItem>();
+                    tmpList.AddRange(matchItems);
+                    tmpList.RemoveRange(100, matchItems.Length - 100);
+                    matchItems = tmpList.ToArray();
+                }
+                this.matchShowLimitTextBox.Text = matchItems.Length.ToString();
+            }
+            this.dTMatchesDataItemBindingSource.DataSource = matchItems;
+
+            for (int i = 0; i < matchItems.Length; ++i)
+            {
+                ColorSourceTextForMatch(matchItems[i], mMatchColor);
+            }
+
+            if (mRegexWorkManager.LastErrorString.Length > 0)
+            {
+                ClearMatches();
+                this.responseToolStripStatusLabel.Text = mRegexWorkManager.LastErrorString;
+            }
+            else this.responseToolStripStatusLabel.Text = "Ready";
+        }
+
         #endregion
 
         #region regexDataGrid Events
@@ -443,6 +467,8 @@ namespace Draco_RegexTest
         
 
         #endregion
+
+        
 
         
 

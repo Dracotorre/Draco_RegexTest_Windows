@@ -85,9 +85,13 @@ namespace Draco_RegexTest
             if (mRegexMatch == null || mRegexMatch.Groups.Count < groupNum) return "";
             if (groupNum <= 0) return mRegexMatch.Groups[0].Value;
 
-            if (mCaptureNamesToReturn != null && mCaptureNamesToReturn.Length >= groupNum)
+            if (mCaptureNamesToReturn != null && mCaptureNamesToReturn.Length > 0)
             {
-                return mRegexMatch.Groups[mCaptureNamesToReturn[groupNum - 1]].Value;
+                if (mCaptureNamesToReturn.Length >= groupNum)
+                {
+                    return mRegexMatch.Groups[mCaptureNamesToReturn[groupNum - 1]].Value;
+                }
+                return "";
             }
             return mRegexMatch.Groups[groupNum].Value;
         }

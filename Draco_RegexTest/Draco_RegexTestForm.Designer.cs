@@ -67,6 +67,7 @@
             this.sourceTextBox = new System.Windows.Forms.RichTextBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.groupBoxSearch = new System.Windows.Forms.GroupBox();
+            this.nextSearchButton = new System.Windows.Forms.Button();
             this.searchTextBox = new System.Windows.Forms.TextBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -79,7 +80,6 @@
             this.startupBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.regexMatchBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.urlFetchBackgroundWorker = new System.ComponentModel.BackgroundWorker();
-            this.nextSearchButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMainLR)).BeginInit();
             this.splitContainerMainLR.Panel1.SuspendLayout();
             this.splitContainerMainLR.Panel2.SuspendLayout();
@@ -356,6 +356,7 @@
             this.groupComboBox.Name = "groupComboBox";
             this.groupComboBox.Size = new System.Drawing.Size(166, 21);
             this.groupComboBox.TabIndex = 2;
+            this.groupComboBox.SelectedIndexChanged += new System.EventHandler(this.groupComboBox_SelectedIndexChanged);
             // 
             // totalMatchesTextBox
             // 
@@ -526,6 +527,17 @@
             this.groupBoxSearch.TabStop = false;
             this.groupBoxSearch.Text = "search";
             // 
+            // nextSearchButton
+            // 
+            this.nextSearchButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nextSearchButton.Location = new System.Drawing.Point(121, 17);
+            this.nextSearchButton.Name = "nextSearchButton";
+            this.nextSearchButton.Size = new System.Drawing.Size(32, 23);
+            this.nextSearchButton.TabIndex = 1;
+            this.nextSearchButton.Text = ">";
+            this.nextSearchButton.UseVisualStyleBackColor = true;
+            this.nextSearchButton.Click += new System.EventHandler(this.nextSearchButton_Click);
+            // 
             // searchTextBox
             // 
             this.searchTextBox.Location = new System.Drawing.Point(7, 20);
@@ -616,17 +628,6 @@
             // 
             this.urlFetchBackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.urlFetchBackgroundWorker_DoWork);
             this.urlFetchBackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.urlFetchBackgroundWorker_RunWorkerCompleted);
-            // 
-            // nextSearchButton
-            // 
-            this.nextSearchButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nextSearchButton.Location = new System.Drawing.Point(121, 17);
-            this.nextSearchButton.Name = "nextSearchButton";
-            this.nextSearchButton.Size = new System.Drawing.Size(32, 23);
-            this.nextSearchButton.TabIndex = 1;
-            this.nextSearchButton.Text = ">";
-            this.nextSearchButton.UseVisualStyleBackColor = true;
-            this.nextSearchButton.Click += new System.EventHandler(this.nextSearchButton_Click);
             // 
             // Draco_RegexTestForm
             // 

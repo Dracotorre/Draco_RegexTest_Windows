@@ -124,6 +124,31 @@ namespace Draco_RegexTest
         }
 
         /// <summary>
+        /// finds all the capture group names within regular expression
+        /// </summary>
+        /// <returns></returns>
+        public string[] GroupNamesInCurrentRegex()
+        {
+            List<string> captureNames = new List<string>();
+            if (mCurrentRegexString != null)
+            {
+                int indexOfStart = mCurrentRegexString.IndexOf("(?<");
+                while (indexOfStart >= 0 && indexOfStart < mCurrentRegexString.Length)
+                {
+                    int indexOfNextParen = mCurrentRegexString.IndexOf(">", indexOfStart);
+                    if (indexOfNextParen > indexOfStart + 3)
+                    {
+                        string groupName = mCurrentRegexString.Substring(indexOfStart + 3, indexOfNextParen - 3 - indexOfStart);
+                        captureNames.Add(groupName);
+                        indexOfStart = mCurrentRegexString.IndexOf("(?<", indexOfNextParen + 1);
+                    }
+                    else indexOfStart = -2;
+                }
+            }
+            return captureNames.ToArray();
+        }
+
+        /// <summary>
         /// results of FindMatchesForCurrentRegexString
         /// </summary>
         /// <param name="captureGroupNamesToDisplay">may be null</param>
