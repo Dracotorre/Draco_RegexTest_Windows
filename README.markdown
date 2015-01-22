@@ -22,6 +22,7 @@ Source written in C# using Visual Studio 2013 for Windows Desktop.
 * * escape escapes in workext text. useful before pasting into source code
 * search source text
 * highlight matches in source text
+* enable drop-down matches with list of capture names to limit results table
 
 ### To-Do Feature List
 
@@ -29,9 +30,8 @@ Source written in C# using Visual Studio 2013 for Windows Desktop.
 * finish Grab Source Selection feature with common replacements
 * add more common error warnings to pre-check
 * color syntax for regular expression strings
-* paranthesis matching in working text box
+* parenthesis matching in working text box
 * remove stored regular expression
 * re-work checked regular expression on source text change
 * time-out for regular expression work
-* enable drop-down matches with list of capture names to limit results table
 * sort list of regular expressions by column
