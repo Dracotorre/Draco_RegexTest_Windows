@@ -7,8 +7,8 @@ Source written in C# using Visual Studio 2013 for Windows Desktop.
 
 ### Working Feature List
 
-* Checkmark active regular expression
-* working text box is multi-line, auto single-line on checkmark
+* Checkmark select active regular expression
+* working text box is multi-line, auto single-line on checkmarked
 * add working text box contents to stored data table using plus button
 * double-click table row header to insert into working text box
 * edit table entry regular expression or title text inline
@@ -22,16 +22,13 @@ Source written in C# using Visual Studio 2013 for Windows Desktop.
 * * escape escapes in workext text. useful before pasting into source code
 * search source text
 * highlight matches in source text
-* enable drop-down matches with list of capture names to limit results table
+* drop-down selection matches with list of capture names to limit results table
 
-### To-Do Feature List
+### Suggested Features
 
 * add File menu to load/save/add lists of other favorite regular expressions
-* finish Grab Source Selection feature with common replacements
 * add more common error warnings to pre-check
 * color syntax for regular expression strings
 * parenthesis matching in working text box
-* remove stored regular expression
-* re-work checked regular expression on source text change
 * time-out for regular expression work
 * sort list of regular expressions by column
